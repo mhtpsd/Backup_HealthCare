@@ -13,10 +13,14 @@
                 <div class="mb-3">
                   <label for="username" class="form-label">Username</label>
                   <input type="text" name="username" formControlName="username" class="form-control" id="username" placeholder="Username">
-                  <div *ngIf="itemForm.get('username')?.invalid && (itemForm.get('username')?.dirty || itemForm.get('username')?.touched)" class="ng-dirty">
-                    <span class="text-danger">Please Enter Username.</span>
+                  <div *ngIf="itemForm.get('username')?.hasError('required') && itemForm.get('username')?.touched" class="form-control">
+                    <span class="text-danger">Please Enter User Name</span>
                   </div>
-                </div>
+                  <div *ngIf="itemForm.get('username')?.hasError('negativeValue') && itemForm.get('username')?.touched" class="form-control">
+                    <span class="text-danger">Score must be a non-negative value.</span>
+                </div>                              
+              </div>
+                
   
                 <div class="mb-3">
                   <label for="email" class="form-label">Email address</label>

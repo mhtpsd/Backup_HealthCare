@@ -104,4 +104,11 @@ export class HttpService {
     return this.http.post(this.serverName+'/api/receptionist/register',details,{headers:headers});
   }
 
+  usernameExists(username: string): Observable<boolean> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    return this.http.get<boolean>(this.serverName + '/api/user/exists', { headers: headers, params: { username } });
+  }
+
+
 }

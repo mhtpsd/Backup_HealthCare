@@ -19,8 +19,11 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.GetMapping;
+
 @RestController
 public class RegisterAndLoginController {
 
@@ -63,6 +66,12 @@ public class RegisterAndLoginController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+    }
+
+    @GetMapping("/api/user/exists")
+    public ResponseEntity<Boolean> userExists(@RequestParam String username) {
+    User user = userService.getUserByUsername(username);
+    return ResponseEntity.ok(user != null);
     }
     
 

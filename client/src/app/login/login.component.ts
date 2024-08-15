@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { AuthService } from '../../services/auth.service';
+import { switchMap } from 'rxjs';
 
 
 
@@ -27,6 +28,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  
   onLogin() {
   if (this.itemForm.valid) {
     this.showError = false;

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators, AsyncValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { HttpService } from '../../services/http.service';
 
 @Component({
@@ -19,7 +21,7 @@ export class RegistrationComponent implements OnInit {
       email: [this.formModel.email, [Validators.required, Validators.email]],
       password: [this.formModel.password, [Validators.required]],
       role: [this.formModel.role, [Validators.required]],
-      username: [this.formModel.username, [Validators.required]],
+      username: [this.formModel.username, [Validators.required], [this.nameValidator()]],
       specialty: [this.formModel.specialty],
       availability: [this.formModel.availability],
     });
@@ -27,6 +29,23 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.onRoleChange();
+  }
+
+  nameValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.bookService.usernameExists(control.value).pipe(
+        map(isTaken => {
+          if (isTaken) {
+            console.log("Hii I'm Trueeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            return { negativeValue: true };
+          } else {
+            console.log("Hii I'm Falseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            return null;
+          }
+        }),
+        catchError(() => of(null))
+      );
+    };
   }
 
   onRoleChange() {
@@ -44,18 +63,17 @@ export class RegistrationComponent implements OnInit {
   }
 
   onRegister() {
-    debugger;
     if (this.itemForm.valid) {
       this.showMessage = false;
-      if( this.itemForm.controls["role"].value=="PATIENT")
-      this.bookService.registerPatient(this.itemForm.value).subscribe(data => {
-        this.showMessage = true;
-        this.responseMessage = "You are successfully Registered";
-        this.itemForm.reset();
-      }, error => {
-        // Handle error
-      });
-      if( this.itemForm.controls["role"].value=="DOCTOR")
+      if (this.itemForm.controls["role"].value == "PATIENT")
+        this.bookService.registerPatient(this.itemForm.value).subscribe(data => {
+          this.showMessage = true;
+          this.responseMessage = "You are successfully Registered";
+          this.itemForm.reset();
+        }, error => {
+          // Handle error
+        });
+      if (this.itemForm.controls["role"].value == "DOCTOR")
         this.bookService.registerDoctors(this.itemForm.value).subscribe(data => {
           this.showMessage = true;
           this.responseMessage = "You are successfully Registered";
@@ -63,14 +81,14 @@ export class RegistrationComponent implements OnInit {
         }, error => {
           // Handle error
         });
-        if( this.itemForm.controls["role"].value=="RECEPTIONIST")
-          this.bookService.registerReceptionist(this.itemForm.value).subscribe(data => {
-            this.showMessage = true;
-            this.responseMessage = "You are successfully Registered";
-            this.itemForm.reset();
-          }, error => {
-            // Handle error
-          });
+      if (this.itemForm.controls["role"].value == "RECEPTIONIST")
+        this.bookService.registerReceptionist(this.itemForm.value).subscribe(data => {
+          this.showMessage = true;
+          this.responseMessage = "You are successfully Registered";
+          this.itemForm.reset();
+        }, error => {
+          // Handle error
+        });
     } else {
       this.itemForm.markAllAsTouched();
     }

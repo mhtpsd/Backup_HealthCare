@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/receptionist/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/exists").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/doctor/availability").hasAuthority("DOCTOR")
                 .antMatchers(HttpMethod.POST, "/api/patient/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/doctors/register").permitAll()
@@ -68,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/receptionist/appointments").hasAuthority("RECEPTIONIST")
                 .antMatchers(HttpMethod.POST, "/api/receptionist/appointment").hasAuthority("RECEPTIONIST")
                 .antMatchers(HttpMethod.PUT, "/api/receptionist/appointment-reschedule/{appointmentId}**").hasAuthority("RECEPTIONIST")
+
                 
                 .anyRequest().authenticated()
                 .and()
