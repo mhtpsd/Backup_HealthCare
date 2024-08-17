@@ -1,7 +1,16 @@
 <div class="card mt-4">
-    <div class="card-header">
-        <h4>Appointments</h4>
-    </div>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h4>Appointments</h4>
+            <div class="input-group search-bar">
+                <div class="form-outline">
+                    <input id="search-input" type="search" (input)="searchAppointments($event)" placeholder="Search appointments" class="form-control form-control-sm" />
+                </div>
+                <button id="search-button" type="button" class="btn btn-primary btn-sm">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
     <div id="DataTable" class="card-body">
         <table id="table_box_bootstrap" class="table table-bordered">
             <thead>

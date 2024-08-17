@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpService } from '../../services/http.service';
 import { AuthService } from '../../services/auth.service';
-import { switchMap } from 'rxjs';
 
 
 
@@ -28,8 +27,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  
   onLogin() {
   if (this.itemForm.valid) {
     this.showError = false;
@@ -41,6 +38,7 @@ export class LoginComponent implements OnInit {
         this.authService.SetRole(data.role);
         this.authService.saveToken(data.token)
         this.authService.saveUserId(data.userId)
+        this.authService.setUsername(data.username);
         this.router.navigateByUrl('/dashboard');
       
         
@@ -65,5 +63,9 @@ export class LoginComponent implements OnInit {
 registration()
   {
     this.router.navigateByUrl('/registration');
+  }
+  getName () {
+    console.log(this.formModel.username)
+    return this.formModel.username;
   }
 }

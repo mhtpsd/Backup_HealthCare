@@ -61,24 +61,4 @@
     border-color: #dee2e6;
 }
 
-/* Styling for the search bar container */
-.search-bar {
-    max-width: 350px; /* Adjust based on your layout */
-    width: 100%;
-}
-
-/* Optional: Add any custom styles for the search button */
-#search-button {
-    padding: 5px 12px;
-}
-
-/* Adjust alignment for the header content */
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.card{
-    margin-top:100px !important;
-}
 

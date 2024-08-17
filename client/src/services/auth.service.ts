@@ -48,4 +48,13 @@ export class AuthService {
   
     localStorage.setItem('userId',userid);
   }
+
+  setUsername(username: any) {
+    localStorage.setItem('userName', username)
+  }
+ 
+  get getUsername() {
+    return localStorage.getItem('userName')
+  }
+
 }

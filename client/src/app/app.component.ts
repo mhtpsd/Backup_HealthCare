@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   IsLoggin:any=false;
   roleName: string | null;
+  username: any | null;
   constructor(private authService: AuthService, private router:Router)
   {
    
@@ -20,6 +21,7 @@ export class AppComponent {
       this.router.navigateByUrl('/login'); 
     
     }
+    this.username = authService.getUsername;
   }
   logout()
 {

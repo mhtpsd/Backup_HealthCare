@@ -9,7 +9,15 @@
                 <label for="time" class="form-label ">Appointment Time</label>
                 <input type="hidden" formControlName="patientId">
                 <input type="hidden" formControlName="doctorId">
-                <input type="datetime-local" name ="time"formControlName="time" [(ngModel)]="formModel.time" class="form-control" id="time" placeholder="Appointment Time">
+                <input 
+  type="datetime-local" 
+  name="time" 
+  formControlName="time" 
+  [(ngModel)]="formModel.time" 
+  class="form-control" 
+  id="time" 
+  placeholder="Appointment Time" 
+  [min]="today">
                 <div *ngIf="itemForm.controls['time'].invalid && (itemForm.controls['time'].dirty || itemForm.controls['time'].touched)"
                 class="ng-dirty">
                 <span *ngIf="itemForm.controls['time'].errors">
@@ -26,7 +34,12 @@
       </div>
  
 </div>
-<div *ngIf="responseMessage" class="alert alert-success mt-4" role="alert">
+<!-- Error or Success Message Display -->
+<div *ngIf="responseMessage === 'Cannot book an appointment in the past.'" class="alert alert-danger mt-3" role="alert">
+  {{ responseMessage }}
+</div>
+
+<div *ngIf="responseMessage && responseMessage !== 'Cannot book an appointment in the past.'" class="alert alert-success mt-3" role="alert">
   {{ responseMessage }}
 </div>
 <div class="card mt-4">

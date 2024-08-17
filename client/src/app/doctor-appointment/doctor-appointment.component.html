@@ -3,17 +3,18 @@
         <h4>Appointments</h4>
     </div>
     <div class="card-body">
-        <table class="table table-boarderd">
+        <table class="table table-bordered">
             <thead>
-                <th>Appointment Id</th>
-                <th>Appointment Time</th>
-                <th>Status</th>
-                <th>Doctor</th>
-                <th>Patient</th>
-               
+                <tr>
+                    <th>Appointment Id</th>
+                    <th>Appointment Time</th>
+                    <th>Status</th>
+                    <th>Doctor</th>
+                    <th>Patient</th>
+                </tr>
             </thead>
-            <tbody *ngFor="let val of appointmentList">
-                <tr >
+            <tbody>
+                <tr *ngFor="let val of paginatedList">
                     <td>{{val.id}}</td>
                     <td>{{val.appointmentTime | date:'dd-MMM-yyyy hh:mm:a'}}</td>
                     <td>{{val.status}}</td>
@@ -23,9 +24,31 @@
                     <td><strong>{{val.patient.username}}</strong><br>
                         <small>{{val.patient.email}}</small>
                     </td>
-                  
                 </tr>
             </tbody>
         </table>
+
+        <!-- Pagination Controls -->
+        <ul class="pagination">
+            <li [class.disabled]="currentPage === 1" (click)="goToPage(1)">
+                <a href="javascript:void(0)">First</a>
+            </li>
+            <li [class.disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+                <a href="javascript:void(0)">Previous</a>
+            </li>
+
+            <!-- Dynamic Page Numbers -->
+            <li *ngFor="let page of [].constructor(totalPages); let i = index"
+                [class.active]="i + 1 === currentPage" (click)="goToPage(i + 1)">
+                <a href="javascript:void(0)">{{i + 1}}</a>
+            </li>
+
+            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+                <a href="javascript:void(0)">Next</a>
+            </li>
+            <li [class.disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">
+                <a href="javascript:void(0)">Last</a>
+            </li>
+        </ul>
     </div>
 </div>

@@ -26,8 +26,16 @@
 </div>
 
 <div class="card mt-4">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between align-items-center">
         <h4>Appointments</h4>
+        <div class="input-group search-bar">
+            <div class="form-outline">
+                <input id="search-input" type="search" (input)="searchAppointments($event)" placeholder="Search appointments" class="form-control form-control-sm" />
+            </div>
+            <button id="search-button" type="button" class="btn btn-primary btn-sm">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
     </div>
     <div class="card-body">
         <table class="table table-bordered">
@@ -38,13 +46,14 @@
                     <th>Status</th>
                     <th>Doctor</th>
                     <th>Patient</th>
-                    <th>Action</th>
+                    <th>Reschedule</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let val of paginatedList">
-                <tr>
+            <tbody>
+                <tr *ngFor="let val of paginatedList">
                     <td>{{val.id}}</td>
-                    <td>{{val.appointmentTime | date:'dd-MMM-yyyy hh:mm:a'}}</td>
+                    <td>{{val.appointmentTime | date:'dd-MMM-yyyy hh:mm:a':'UTC'}}</td>
                     <td>{{val.status}}</td>
                     <td><strong>{{val.doctor.username}}</strong><br>
                         <small>{{val.doctor.email}}</small>
@@ -54,6 +63,9 @@
                     </td>
                     <td>
                         <button (click)="editAppointment(val)" class="btn btn-warning">Reschedule</button>
+                    </td>
+                    <td>
+                        <button (click)="deleteAppointment(val)" class="btn btn-danger">Delete</button>
                     </td>
                 </tr>
             </tbody>

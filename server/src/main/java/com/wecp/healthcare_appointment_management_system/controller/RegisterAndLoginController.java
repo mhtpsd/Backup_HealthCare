@@ -23,12 +23,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import com.wecp.healthcare_appointment_management_system.repository.*;
 
 @RestController
 public class RegisterAndLoginController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     private AuthenticationManager authenticationManager;
 
@@ -73,6 +78,18 @@ public class RegisterAndLoginController {
     User user = userService.getUserByUsername(username);
     return ResponseEntity.ok(user != null);
     }
+
+    @DeleteMapping("/api/appointment/delete")
+public ResponseEntity<Void> deleteAppointment(@RequestParam Long appointmentId) {
+    // Check if the appointment exists before deleting
+    if (appointmentRepository.existsById(appointmentId)) {
+        appointmentRepository.deleteById(appointmentId);
+        return ResponseEntity.ok().build();
+    } else {
+        return ResponseEntity.notFound().build(); // Return 404 if the appointment doesn't exist
+    }
+}
+
     
 
 }

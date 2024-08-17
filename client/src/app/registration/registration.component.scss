@@ -1,3 +1,5 @@
+/* Registration Form Styling */
+
 .form-container {
     position: relative;
     width: 40%;
@@ -31,6 +33,13 @@
 .error {
     color: red;
 }
+.card-container {
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center; /* Vertically center */
+    height: 100vh; /* Adjust as needed */
+    overflow: hidden; /* Prevent vertical scroll */
+}
 
 input {
     width: 100%;
@@ -49,9 +58,15 @@ input {
 
 .go-to-login {
     color: blue;
-    
 }
 
-a {
-    text-decoration: underline;
+#registraton-card-black {
+    background-color: rgba(0, 0, 0, 0.475);
+    color: white;
+    position: fixed;
 }
+
+.error-message {
+    margin-bottom: 10px; /* Adjust as needed */
+  }
+  

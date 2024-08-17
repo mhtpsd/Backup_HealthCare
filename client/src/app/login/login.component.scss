@@ -1,3 +1,18 @@
-a{
-    cursor: pointer;
+.vh-85 {
+  height: 90vh; /* Adjust the height of the container */
+  display: flex; /* Use Flexbox */
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+}
+
+
+.card-black {
+  background-color: rgba(0, 0, 0, 0.475);
+  color: white;
+  position: relative; /* Change from fixed to relative */
+  max-width: 100%; 
+ 
+         /* Limit the width of the card */
+  margin: auto; /* Center the card */
+  padding: 20px; /* Add some padding */
 }

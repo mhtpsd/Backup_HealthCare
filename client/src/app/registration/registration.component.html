@@ -1,25 +1,31 @@
-<div class="vh-100 d-flex justify-content-center align-items-center">
-    <div class="container">
-      <div class="row d-flex justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6">
-          <div class="border border-3 border-primary"></div>
-          <div class="card bg-white">
+
+<div class="vh-85 d-flex justify-content-center align-items-center">
+  <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6"  style="background-color: rgba(0, 0, 0, 0.475);color: white;">
+          <!-- <div class="border border-3 border-primary"></div> -->
+          <div class="card-black ">
             <div class="card-body p-5">
   
-              <form class="mb-3 mt-md-4" [formGroup]="itemForm" (ngSubmit)="onRegister()">
-                <h2 class="fw-bold mb-2 text-uppercase text-center">Healthcare Appointment Management System</h2>
-                <p class="mb-5">Please enter your details here</p>
+              <form class="mb-4 mt-md-4" [formGroup]="itemForm" (ngSubmit)="onRegister()">
+                <h6 class="fw-bold mb-1 text-uppercase text-center">Healthcare Appointment Management System</h6>
+                <p class="mb-7 text-center">Please enter your details here</p>
                 
                 <div class="mb-3">
                   <label for="username" class="form-label">Username</label>
                   <input type="text" name="username" formControlName="username" class="form-control" id="username" placeholder="Username">
-                  <div *ngIf="itemForm.get('username')?.hasError('required') && itemForm.get('username')?.touched" class="form-control">
-                    <span class="text-danger">Please Enter User Name</span>
+                  <div *ngIf="itemForm.get('username')?.invalid && (itemForm.get('username')?.dirty || itemForm.get('username')?.touched)" class="ng-dirty">
+                    <div class="error-message">
+                      <span class="text-danger">Please Enter Username.</span>
+                    </div>
+                  </div> 
+                    <div *ngIf="itemForm.get('username')?.hasError('negativeValue') && itemForm.get('username')?.touched" class="ng-dirty">
+                      <div class="error-message">
+                        <span class="text-danger">Existing User !</span>
+                      </div>
+                   
                   </div>
-                  <div *ngIf="itemForm.get('username')?.hasError('negativeValue') && itemForm.get('username')?.touched" class="form-control">
-                    <span class="text-danger">Score must be a non-negative value.</span>
-                </div>                              
-              </div>
+                </div>
                 
   
                 <div class="mb-3">
@@ -27,7 +33,10 @@
                   <input type="email" name="email" formControlName="email" class="form-control" id="email" placeholder="name@example.com">
                   <div *ngIf="itemForm.get('email')?.invalid && (itemForm.get('email')?.dirty || itemForm.get('email')?.touched)" class="ng-dirty">
                     <span class="text-danger">Please Enter email.</span>
-                    <span *ngIf="itemForm.get('email')?.errors?.['email']">Not a valid Email</span>
+                    
+                  </div>
+                  <div>
+                    <span class="text-danger" *ngIf="itemForm.get('email')?.errors?.['email']">Not a valid Email</span>
                   </div>
                 </div>
   
@@ -36,6 +45,9 @@
                   <input type="password" name="password" formControlName="password" class="form-control" id="password" placeholder="*******">
                   <div *ngIf="itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched)" class="ng-dirty">
                     <span class="text-danger">Please Enter password.</span>
+                  </div>
+                  <div *ngIf="itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched)" class="ng-dirty">
+                    <span class="text-danger">Password must be Valid !</span>
                   </div>
                 </div>
   
@@ -73,7 +85,7 @@
                 </div>
   
                 <div class="d-grid">
-                  <button class="btn btn-outline-dark" type="submit">Submit</button>
+                  <button class="btn btn-success" type="submit">Submit</button>
                 </div>
               </form>
   
@@ -91,3 +103,4 @@
       </div>
     </div>
   </div>
+  

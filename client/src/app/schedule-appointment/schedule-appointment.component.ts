@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-schedule-appointment',
   templateUrl: './schedule-appointment.component.html',
-  styleUrls: ['./schedule-appointment.component.scss'],
+  styleUrls: ['./schedule-appointment.component.css'],
   providers: [DatePipe] 
 })
 export class ScheduleAppointmentComponent implements OnInit {
@@ -15,7 +15,9 @@ export class ScheduleAppointmentComponent implements OnInit {
   formModel:any={};
   responseMessage:any;
   isAdded: boolean=false;
+  today: string;
   constructor(public httpService:HttpService,private formBuilder: FormBuilder,private datePipe: DatePipe) {
+    this.today = new Date().toISOString().split('T')[0];
     this.itemForm = this.formBuilder.group({
       patientId: [this.formModel.patientId,[ Validators.required]],
       doctorId: [this.formModel.doctorId,[ Validators.required]],
@@ -42,21 +44,23 @@ export class ScheduleAppointmentComponent implements OnInit {
   
     this.isAdded=true;
   }
-  onSubmit()
-  {
-    const formattedTime = this.datePipe.transform(this.itemForm.controls['time'].value, 'yyyy-MM-dd HH:mm:ss');
-
-    // Update the form value with the formatted date
+  onSubmit() {
+    const selectedTime = new Date(this.itemForm.controls['time'].value);
+    const now = new Date();
+  
+    if (selectedTime < now) {
+      this.responseMessage = "Cannot book an appointment in the past.";
+      return; // Prevent the form submission
+    }
+  
+    const formattedTime = this.datePipe.transform(selectedTime, 'yyyy-MM-dd HH:mm:ss');
     this.itemForm.controls['time'].setValue(formattedTime);
-    debugger;
-    // this.itemForm.controls["time"].setValue("2018-02-05T12:59:11.332")
-    this.httpService.ScheduleAppointment( this.itemForm.value).subscribe((data)=>{
-   
+  
+    this.httpService.ScheduleAppointment(this.itemForm.value).subscribe((data) => {
       this.itemForm.reset();
-      this.responseMessage="Appointment Save Successfully";
-      this.isAdded=false;
-    })
-    
+      this.responseMessage = "Appointment saved successfully.";
+      this.isAdded = false;
+    });
   }
 
 }

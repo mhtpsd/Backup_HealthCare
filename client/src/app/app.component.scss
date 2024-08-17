@@ -1,0 +1,120 @@
+body{
+height: 100%;
+margin: 0;
+padding: 0;
+}
+
+
+.nav-item {
+    margin-left: auto;
+  }
+  .nav-link:hover {
+    color:#343a40 ;
+    background-color: rgb(226, 226, 226);
+    border-radius: 20px;
+  }
+  .navbar-nav.mr-auto {
+    margin-right: auto;
+  }
+   
+  .navbar-nav.ml-auto {
+    margin-left: auto;
+  }
+   
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-image: url("../assets/medical.jpg");
+   // background-image: url("../assets/medical.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    // background-attachment: fixed;
+    width: 100%;
+    height: 150vh;
+    display: flex;
+    // position: relative;
+}
+   
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+   
+  .login-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+  }
+   
+  .glass-card {
+    backdrop-filter: blur(15px);
+    background: rgba(238, 238, 238, 0.224);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  }
+   
+  .form-control {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  body {
+    padding: 0; /* Adjust as needed */
+    margin: 0; /* Adjust as needed */
+  }
+  .container {
+    padding: 20px; /* Adjust as needed */
+    margin: auto; /* Centers the container */
+    max-width: 90%; /* Adjust as needed */
+  }
+   
+  .btn-outline-light {
+    border-color: rgba(124, 124, 124, 0.8);
+    color: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+   
+  .text-white {
+    color: rgb(0, 0, 0) !important;
+  }
+   
+  .container-fluid {
+    background-size: cover;
+    background-position:center;
+    min-height: 100vh;
+  }
+   
+  .vh-100 {
+    height: 100vh;
+  }
+   
+  .justify-content-center {
+    justify-content: center;
+  }
+  .hover-effect {
+    transition: color 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
+    padding: 5px 10px;
+  }
+   
+  .hover-effect:hover {
+    color: black;
+    background-color: white;
+    border-radius: 60px;
+  }
+
+  .container-fluid {
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}

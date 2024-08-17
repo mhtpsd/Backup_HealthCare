@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../environments/environment.development';
 import { AuthService } from './auth.service';
 
@@ -9,6 +9,8 @@ import { AuthService } from './auth.service';
 })
 export class HttpService {
   public serverName=environment.apiUrl;
+  mystring!:any;
+  paginatedList: any;
   constructor(private http: HttpClient, private authService:AuthService) {}
  
   updateDoctorAvailability(doctorId:any,availability:any)
@@ -109,6 +111,31 @@ export class HttpService {
     headers = headers.set('Content-Type', 'application/json');
     return this.http.get<boolean>(this.serverName + '/api/user/exists', { headers: headers, params: { username } });
   }
+
+  deleteAppointment(val: any) {
+    const authToken = this.authService.getToken();  
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', `Bearer ${authToken}`);  
+
+    // Ensure the ID is passed correctly
+    this.http.delete(`${this.serverName}/api/appointment/delete?appointmentId=${val.id}`, { headers: headers })
+        .subscribe(
+            response => {
+                console.log("Appointment deleted successfully", response);
+                // Remove the deleted appointment from the list
+                const index = this.paginatedList.findIndex((appointment: { id: any }) => appointment.id === val.id);
+                if (index > -1) {
+                    this.paginatedList.splice(index, 1);
+                }
+            },
+            error => {
+                console.error("Error deleting appointment", error);
+            }
+        );
+}
+
+
 
 
 }

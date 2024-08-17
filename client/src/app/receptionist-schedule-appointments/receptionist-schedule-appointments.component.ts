@@ -16,6 +16,7 @@ export class ReceptionistScheduleAppointmentsComponent implements OnInit {
   formModel:any={};
   responseMessage:any;
   isAdded: boolean=false;
+  today!: string;
   constructor(public httpService:HttpService,private formBuilder: FormBuilder,private datePipe: DatePipe) {
     this.itemForm = this.formBuilder.group({
       patientId: [this.formModel.patientId,[ Validators.required]],
@@ -32,6 +33,13 @@ export class ReceptionistScheduleAppointmentsComponent implements OnInit {
   {
    
     debugger;
+    const selectedTime = new Date(this.itemForm.controls['time'].value);
+    const now = new Date();
+  
+    if (selectedTime < now) {
+      this.responseMessage = "Cannot book an appointment in the past.";
+      return; // Prevent the form submission
+    }
     const formattedTime = this.datePipe.transform(this.itemForm.controls['time'].value, 'yyyy-MM-dd HH:mm:ss');
 
     // Update the form value with the formatted date
