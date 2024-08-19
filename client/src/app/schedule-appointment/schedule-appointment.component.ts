@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-schedule-appointment',
@@ -21,9 +22,24 @@ export class ScheduleAppointmentComponent implements OnInit {
     this.itemForm = this.formBuilder.group({
       patientId: [this.formModel.patientId,[ Validators.required]],
       doctorId: [this.formModel.doctorId,[ Validators.required]],
-      time: [this.formModel.time,[ Validators.required]],
+      time: [this.formModel.time,[ Validators.required], [this.timeValidator()]],
   });
    }
+
+   timeValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      return this.httpService.checkForTime(control.value).pipe(
+        map(isTaken => {
+          if (isTaken) {
+            return { negativeValue: true };
+          } else {
+            return null;
+          }
+        }),
+        catchError(() => of(null))
+      );
+    };
+  }
 
   ngOnInit(): void {
     this.getPatients();

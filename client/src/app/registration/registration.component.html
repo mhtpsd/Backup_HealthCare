@@ -10,46 +10,67 @@
               <form class="mb-4 mt-md-4" [formGroup]="itemForm" (ngSubmit)="onRegister()">
                 <h6 class="fw-bold mb-1 text-uppercase text-center">Healthcare Appointment Management System</h6>
                 <p class="mb-7 text-center">Please enter your details here</p>
-                
                 <div class="mb-3">
                   <label for="username" class="form-label">Username</label>
-                  <input type="text" name="username" formControlName="username" class="form-control" id="username" placeholder="Username">
-                  <div *ngIf="itemForm.get('username')?.invalid && (itemForm.get('username')?.dirty || itemForm.get('username')?.touched)" class="ng-dirty">
-                    <div class="error-message">
-                      <span class="text-danger">Please Enter Username.</span>
-                    </div>
-                  </div> 
-                    <div *ngIf="itemForm.get('username')?.hasError('negativeValue') && itemForm.get('username')?.touched" class="ng-dirty">
-                      <div class="error-message">
-                        <span class="text-danger">Existing User !</span>
-                      </div>
-                   
-                  </div>
+                  <input 
+    type="text" 
+    name="username" 
+    formControlName="username" 
+    class="form-control" 
+    id="username" 
+    placeholder="Username">
+
+<div *ngIf="itemForm.get('username')?.touched" class="ng-dirty">
+    <!-- Show "Please Enter Username." only if the field is invalid and does not have the 'negativeValue' error -->
+    <div *ngIf="itemForm.get('username')?.invalid && !itemForm.get('username')?.hasError('negativeValue')" class="error-message">
+        <span class="text-danger">Please Enter Username.</span>
+    </div>
+    <!-- Show "Existing User!" if the 'negativeValue' error is present -->
+    <div *ngIf="itemForm.get('username')?.hasError('negativeValue')" class="error-message">
+        <span class="text-danger">Existing User!</span>
+    </div>
+</div>
                 </div>
                 
   
                 <div class="mb-3">
                   <label for="email" class="form-label">Email address</label>
-                  <input type="email" name="email" formControlName="email" class="form-control" id="email" placeholder="name@example.com">
-                  <div *ngIf="itemForm.get('email')?.invalid && (itemForm.get('email')?.dirty || itemForm.get('email')?.touched)" class="ng-dirty">
-                    <span class="text-danger">Please Enter email.</span>
-                    
+                  <input 
+                      type="email" 
+                      name="email" 
+                      formControlName="email" 
+                      class="form-control" 
+                      id="email" 
+                      placeholder="name@example.com">
+                  
+                  <div *ngIf="itemForm.get('email')?.touched" class="ng-dirty">
+                      <!-- Show "Please Enter email." only if the field is empty -->
+                      <span class="text-danger" *ngIf="itemForm.get('email')?.errors?.['required']">Please Enter email.</span>
+                      
+                      <!-- Show "Not a valid Email" only if the email format is invalid -->
+                      <span class="text-danger" *ngIf="itemForm.get('email')?.errors?.['email']">Not a valid Email</span>
                   </div>
-                  <div>
-                    <span class="text-danger" *ngIf="itemForm.get('email')?.errors?.['email']">Not a valid Email</span>
-                  </div>
-                </div>
+              </div>
+              
   
                 <div class="mb-3">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" name="password" formControlName="password" class="form-control" id="password" placeholder="*******">
-                  <div *ngIf="itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched)" class="ng-dirty">
-                    <span class="text-danger">Please Enter password.</span>
+                  <input 
+                      type="password" 
+                      name="password" 
+                      formControlName="password" 
+                      class="form-control" 
+                      id="password" 
+                      placeholder="*******">
+                  
+                  <div *ngIf="itemForm.get('password')?.touched" class="ng-dirty">
+                      <!-- Show "Please Enter password." only if the field is empty -->
+                      <span class="text-danger" *ngIf="itemForm.get('password')?.errors?.['required']">Please Enter password.</span>
+                      
+                      <!-- Show "Password must be Valid!" if the password doesn't meet validation criteria -->
+                      <span class="text-danger" *ngIf="itemForm.get('password')?.errors && !itemForm.get('password')?.errors?.['required']">Password must be Valid!</span>
                   </div>
-                  <div *ngIf="itemForm.get('password')?.invalid && (itemForm.get('password')?.dirty || itemForm.get('password')?.touched)" class="ng-dirty">
-                    <span class="text-danger">Password must be Valid !</span>
-                  </div>
-                </div>
+              </div>              
   
                 <div class="mb-3">
                   <label for="role" class="form-label">Role</label>

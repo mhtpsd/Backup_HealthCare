@@ -2,3 +2,9 @@
     color: #ff0000; /* Red color */
     font-weight: bold;
 }
+
+.card-header {
+    background-color: #343a40 !important;
+    color: #fff !important;
+    border-radius: 10px 10px 0 0;
+}

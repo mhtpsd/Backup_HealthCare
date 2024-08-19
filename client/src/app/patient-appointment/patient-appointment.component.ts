@@ -12,7 +12,7 @@ export class PatientAppointmentComponent implements OnInit {
   paginatedList: any = []; // This will hold the items for the current page
   filteredAppointments: any = []; // This will hold the filtered appointments for pagination
   currentPage: number = 1; // Current page number
-  itemsPerPage: number = 5; // Number of items per page
+  itemsPerPage: number = 10; // Number of items per page
 
   constructor(public httpService: HttpService) {}
 

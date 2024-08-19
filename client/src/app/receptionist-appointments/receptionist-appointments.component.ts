@@ -79,13 +79,15 @@ export class ReceptionistAppointmentsComponent implements OnInit {
     this.isAdded = true;
   }
 
-  deleteAppointment(val: any) {
+  deleteAppointment(val: any):any {
     // Confirm with the user
         // Find the index of the appointment in the paginatedList array
         const index = this.paginatedList.findIndex((appointment: { id: any }) => appointment.id === val.id);
         if(index!=-1){
-          this.httpService.deleteAppointment(val.id);
-          console.log(val.id);
+          this.httpService.deleteAppointment(val.id).subscribe(()=>{
+            this.getAppointments();
+            console.log(val.id);
+          })
         }
 
         // Remove the appointment from the array

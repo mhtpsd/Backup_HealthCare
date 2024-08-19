@@ -1,3 +1,68 @@
+/* Centering content in the page */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 40vh;
+    padding: 20px;
+}
+
+.thead-dark th {
+    background-color: #343a40;
+    color: white;
+}
+
+/* Styling for responsive reschedule form */
+.reschedule-card {
+    margin: 20px 0;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 600px; /* Adjust based on desired max width */
+}
+
+/* Card styles */
+.appointments-card {
+    margin-top: 20px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 1000px; /* Adjust based on desired max width */
+}
+
+/* Improved search bar styling */
+.search-bar {
+    max-width: 400px;
+    width: 100%;
+}
+
+#search-button {
+    padding: 5px 15px;
+    background-color: #007bff;
+    color: white;
+}
+
+/* Responsive table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Adjust the font size for smaller screens */
+@media (max-width: 768px) {
+    .table {
+        font-size: 12px;
+    }
+
+    .reschedule-card,
+    .appointments-card {
+        margin: 20px 0;
+    }
+
+    .search-bar {
+        max-width: 100%;
+    }
+}
+
+/* Improved pagination controls */
 .pagination {
     display: flex;
     justify-content: center;
@@ -13,7 +78,7 @@
 }
 
 .pagination li a {
-    color: #000;
+    color: #007bff;
     text-decoration: none;
     padding: 5px 10px;
     border: 1px solid #dee2e6;
@@ -23,14 +88,14 @@
 }
 
 .pagination li a:hover {
-    background-color: #000;
+    background-color: #007bff;
     color: white;
 }
 
 .pagination li.active a {
-    background-color: #000;
+    background-color: #007bff;
     color: white;
-    border-color: #000;
+    border-color: #007bff;
 }
 
 .pagination li.disabled a {
@@ -47,23 +112,3 @@
 }
 
 
-/* Styling for the search bar container */
-.search-bar {
-    max-width: 350px; /* Adjust based on your layout */
-    width: 100%;
-}
-
-/* Optional: Add any custom styles for the search button */
-#search-button {
-    padding: 5px 12px;
-}
-
-/* Adjust alignment for the header content */
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.card{
-    margin-top: 50px !important;
-}

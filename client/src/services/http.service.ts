@@ -112,28 +112,33 @@ export class HttpService {
     return this.http.get<boolean>(this.serverName + '/api/user/exists', { headers: headers, params: { username } });
   }
 
-  deleteAppointment(val: any) {
-    const authToken = this.authService.getToken();  
-    let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/json');
-    headers = headers.set('Authorization', `Bearer ${authToken}`);  
+//   deleteAppointment(details: any) {
+//     const authToken = this.authService.getToken();  
+//     console.log(details);
+//     let headers = new HttpHeaders();
+//     headers = headers.set('Content-Type', 'application/json');
+//     headers = headers.set('Authorization', `Bearer ${authToken}`);  
 
-    // Ensure the ID is passed correctly
-    this.http.delete(`${this.serverName}/api/appointment/delete?appointmentId=${val.id}`, { headers: headers })
-        .subscribe(
-            response => {
-                console.log("Appointment deleted successfully", response);
-                // Remove the deleted appointment from the list
-                const index = this.paginatedList.findIndex((appointment: { id: any }) => appointment.id === val.id);
-                if (index > -1) {
-                    this.paginatedList.splice(index, 1);
-                }
-            },
-            error => {
-                console.error("Error deleting appointment", error);
-            }
-        );
-}
+//     // Ensure the ID is passed correctly
+//     // this.http.delete(this.serverName/api/appointment/delete?appointmentId=${val.id}`, { headers: headers });
+//     // this.http.put(this.serverName+/api/appointment/delete?appointmentId='+appointmentId,formvalue,{headers:headers});
+//     console.log(this.http.delete(this.serverName+'/api/appointment/delete?appointmentId='+details,{headers:headers}));
+// }
+
+deleteAppointment(id:any){
+  // alert("HTTP SERVICE"+id);
+  const authToken = this.authService.getToken();
+   let headers = new HttpHeaders();
+   headers = headers.set('Content-Type', 'application/json');
+   headers = headers.set('Authorization', `Bearer ${authToken}`);
+   return this.http.delete(this.serverName+`/api/appointment/delete/${id}`, { headers: headers });
+ }
+
+ checkForTime(details:any):Observable<Boolean>{
+  let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+  return this.http.get<boolean>(this.serverName + '/api/user/appointmentTime', { headers: headers, params: { details } });
+ }
 
 
 

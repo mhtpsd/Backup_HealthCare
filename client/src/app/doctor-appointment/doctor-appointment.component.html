@@ -3,51 +3,53 @@
         <h4>Appointments</h4>
     </div>
     <div class="card-body">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Appointment Id</th>
-                    <th>Appointment Time</th>
-                    <th>Status</th>
-                    <th>Doctor</th>
-                    <th>Patient</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let val of paginatedList">
-                    <td>{{val.id}}</td>
-                    <td>{{val.appointmentTime | date:'dd-MMM-yyyy hh:mm:a'}}</td>
-                    <td>{{val.status}}</td>
-                    <td><strong>{{val.doctor.username}}</strong><br>
-                        <small>{{val.doctor.email}}</small>
-                    </td>
-                    <td><strong>{{val.patient.username}}</strong><br>
-                        <small>{{val.patient.email}}</small>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive"> <!-- Added for responsiveness -->
+            <table class="table table-bordered table-hover"> <!-- Added table-hover class for row hover effects -->
+                <thead class="thead-dark"> <!-- Dark header background -->
+                    <tr>
+                        <th>Appointment Id</th>
+                        <th>Appointment Time</th>
+                        <th>Status</th>
+                        <th>Doctor</th>
+                        <th>Patient</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let val of paginatedList" (click)="viewDetails(val)"> <!-- Added row click event -->
+                        <td>{{val.id}}</td>
+                        <td>{{val.appointmentTime | date:'dd-MMM-yyyy hh:mm:a'}}</td>
+                        <td><span class="badge" [ngClass]="{'badge-success': val.status === 'Scheduled', 'badge-warning': val.status === 'Pending', 'badge-danger': val.status === 'Cancelled'}">{{val.status}}</span></td>
+                        <td><strong>{{val.doctor.username}}</strong><br>
+                            <small>{{val.doctor.email}}</small>
+                        </td>
+                        <td><strong>{{val.patient.username}}</strong><br>
+                            <small>{{val.patient.email}}</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
         <!-- Pagination Controls -->
         <ul class="pagination">
             <li [class.disabled]="currentPage === 1" (click)="goToPage(1)">
-                <a href="javascript:void(0)">First</a>
+                <a href="javascript:void(0)" aria-label="First Page" title="First Page">First</a> <!-- Added aria-label and title -->
             </li>
             <li [class.disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
-                <a href="javascript:void(0)">Previous</a>
+                <a href="javascript:void(0)" aria-label="Previous Page" title="Previous Page">Previous</a>
             </li>
 
             <!-- Dynamic Page Numbers -->
             <li *ngFor="let page of [].constructor(totalPages); let i = index"
                 [class.active]="i + 1 === currentPage" (click)="goToPage(i + 1)">
-                <a href="javascript:void(0)">{{i + 1}}</a>
+                <a href="javascript:void(0)" [attr.aria-label]="'Page ' + (i + 1)" [title]="'Page ' + (i + 1)">{{i + 1}}</a>
             </li>
 
             <li [class.disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
-                <a href="javascript:void(0)">Next</a>
+                <a href="javascript:void(0)" aria-label="Next Page" title="Next Page">Next</a>
             </li>
             <li [class.disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">
-                <a href="javascript:void(0)">Last</a>
+                <a href="javascript:void(0)" aria-label="Last Page" title="Last Page">Last</a>
             </li>
         </ul>
     </div>

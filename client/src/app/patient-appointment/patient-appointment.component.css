@@ -1,84 +1,84 @@
-.box ul.pagination {
-    position: relative; /* Changed from absolute to relative */
-    bottom: auto;
-    right: auto;
-    display: block;
-    width: 100%;
-    margin-top: 10px; /* Added some margin to space out the pagination */
+.card {
+    margin-top: 25px !important;
+    border: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-.box .dvrecords {
-    display: block;
-    margin-bottom: 10px;
-    text-align: center; /* Center align the record and pagination controls */
+.thead-dark th {
+    background-color: #343a40;
+    color: white;
+}
+
+.card-header {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.search-bar {
+    max-width: 400px;
+    width: 100%;
+}
+
+#search-button {
+    padding: 5px 10px;
+    color: #007bff;
+    background-color: white;
+    border: 1px solid #007bff;
+    border-radius: 0.25rem;
+}
+
+#search-button:hover {
+    color: white;
+    background-color: #007bff;
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    padding-left: 0;
-    list-style: none;
-    border-radius: 0.25rem;
-    margin-top: 20px; /* Adds space above pagination */
+    margin-top: 20px;
 }
 
-.pagination li {
-    display: inline-block;
-    margin: 0 5px; /* Adds spacing between pagination items */
+.pagination .page-item .page-link {
+    color: #007bff;
+    border: 1px solid #dee2e6;
 }
 
-.pagination li a {
-    color: #000; /* Blue color for links */
-    text-decoration: none;
-    padding: 5px 10px;
-    border: 1px solid #dee2e6; /* Border around each page link */
-    border-radius: 0.25rem;
-    background-color: #f8f9fa; /* Light background color */
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.pagination li a:hover {
-    background-color: #000;
-    color: white; /* White text on hover */
-}
-
-.pagination li.active a {
-    background-color: #000; /* Active page background */
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
     color: white;
-    border-color: #000;
 }
 
-.pagination li.disabled a {
-    color: #6c757d; /* Gray color for disabled links */
-    background-color: #e9ecef;
-    border-color: #dee2e6;
-    cursor: not-allowed;
+.pagination .page-item.disabled .page-link {
+    background-color: #f1f1f1;
+    color: #ccc;
 }
 
-.pagination li.disabled a:hover {
-    background-color: #e9ecef;
-    color: #6c757d;
-    border-color: #dee2e6;
-}
+@media (max-width: 768px) {
+    .card {
+        margin-top: 20px !important;
+    }
 
-/* Styling for the search bar container */
-.search-bar {
-    max-width: 350px; /* Adjust based on your layout */
-    width: 100%;
-}
+    .table-responsive-md {
+        font-size: 14px;
+    }
 
-/* Optional: Add any custom styles for the search button */
-#search-button {
-    padding: 5px 12px;
-}
+    .card-header {
+        flex-direction: column;
+        align-items: start;
+    }
 
-/* Adjust alignment for the header content */
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.card{
-    margin-top:100px !important;
+    .search-bar {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .pagination {
+        margin-top: 15px;
+    }
 }
 

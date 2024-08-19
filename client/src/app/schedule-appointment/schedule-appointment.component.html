@@ -1,74 +1,75 @@
-<div *ngIf="isAdded" class="card">
-  <div class="card-header">
-      <h4>Add Appointment</h4>
-  </div>
-      <div class="card-body">
-          <form class="mb-3 mt-md-4" [formGroup]="itemForm" (ngSubmit)="onSubmit()">
-            
-              <div class="mb-3">
-                <label for="time" class="form-label ">Appointment Time</label>
-                <input type="hidden" formControlName="patientId">
-                <input type="hidden" formControlName="doctorId">
-                <input 
-  type="datetime-local" 
-  name="time" 
-  formControlName="time" 
-  [(ngModel)]="formModel.time" 
-  class="form-control" 
-  id="time" 
-  placeholder="Appointment Time" 
-  [min]="today">
-                <div *ngIf="itemForm.controls['time'].invalid && (itemForm.controls['time'].dirty || itemForm.controls['time'].touched)"
-                class="ng-dirty">
-                <span *ngIf="itemForm.controls['time'].errors">
-                  <span class="text-danger">Please Choose Appointment Time .</span>
-                </span>
-              </div>
-              </div>
-             
-
-              <div class="col-md-2">
-                <button class="btn btn-outline-dark" type="submit">Submit</button>
-              </div>
-            </form>
-      </div>
- 
-</div>
-<!-- Error or Success Message Display -->
-<div *ngIf="responseMessage === 'Cannot book an appointment in the past.'" class="alert alert-danger mt-3" role="alert">
-  {{ responseMessage }}
-</div>
-
-<div *ngIf="responseMessage && responseMessage !== 'Cannot book an appointment in the past.'" class="alert alert-success mt-3" role="alert">
-  {{ responseMessage }}
-</div>
-<div class="card mt-4">
-  <div class="card-header">
-      <h4>Doctors</h4>
+<div *ngIf="isAdded" class="card mx-auto mt-4" style="max-width: 600px;">
+  <div class="card-header text-center bg-primary text-white" style="background-color: #007bff;">
+    <h4>Add Appointment</h4>
   </div>
   <div class="card-body">
-      <table class="table table-boarderd">
-          <thead>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Specialty</th>
-              <th>Availability</th>
-              <th>Action</th>
-          </thead>
-          <tbody *ngFor="let val of doctorList">
-              <tr >
-                  <td>{{val.id}}</td>
-                  <td>{{val.username}}</td>
-                  <td>{{val.specialty}}</td>
-                  <td>{{val.availability}}</td>
-                  <td>
-                      <button *ngIf="val.availability === 'Yes'" type="button" (click)="addAppointment(val)" class="btn btn-primary">
-                          Appointment
-                      </button>
-                  </td>
-                
-              </tr>
-          </tbody>
-      </table>
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="time" class="form-label">Appointment Time</label>
+        <input type="hidden" formControlName="patientId">
+        <input type="hidden" formControlName="doctorId">
+        <input 
+          type="datetime-local" 
+          name="time" 
+          formControlName="time" 
+          [(ngModel)]="formModel.time"
+          class="form-control" 
+          id="time" 
+          placeholder="Appointment Time"
+          [min]="today">
+        <div *ngIf="itemForm.controls['time'].invalid && (itemForm.controls['time'].dirty || itemForm.controls['time'].touched)" class="ng-dirty">
+          <span class="text-danger">Please choose a valid appointment time.</span>
+        </div>
+        <div *ngIf="itemForm.get('time')?.hasError('negativeValue')" class="error-message">
+          <span class="text-danger">Patient Already Booked this Appointment Time !</span>
+      </div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-primary" type="submit" style="background-color: #007bff;">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Error or Success Message Display -->
+<div *ngIf="responseMessage === 'Cannot book an appointment in the past.'" class="alert alert-danger mt-3 text-center" role="alert">
+  {{ responseMessage }}
+</div>
+
+<div *ngIf="responseMessage && responseMessage !== 'Cannot book an appointment in the past.'" class="alert alert-success mt-3 text-center" role="alert">
+  {{ responseMessage }}
+</div>
+
+<div class="card mt-4 mx-auto" style="max-width: 800px;">
+  <div class="card-header text-center bg-primary text-black">
+    <h4>Update Availability</h4>
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Specialty</th>
+          <th>Availability</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let val of doctorList">
+        <tr>
+          <td>{{val.id}}</td>
+          <td>{{val.username}}</td>
+          <td>{{val.specialty}}</td>
+          <td>{{val.availability}}</td>
+          <td>
+            <button *ngIf="val.availability === 'No'" class="btn btn-danger" disabled>Not Available</button>
+            <button *ngIf="val.availability === 'Yes'" type="button" (click)="addAppointment(val)" class="btn btn-primary" style="background-color: #007bff;">
+              Appointment
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

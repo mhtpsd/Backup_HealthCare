@@ -31,14 +31,15 @@ export class ReceptionistScheduleAppointmentsComponent implements OnInit {
 
   onSubmit()
   {
-   
     debugger;
     const selectedTime = new Date(this.itemForm.controls['time'].value);
     const now = new Date();
-  
-    if (selectedTime < now) {
-      this.responseMessage = "Cannot book an appointment in the past.";
-      return; // Prevent the form submission
+
+    if (isNaN(selectedTime.getTime())) {
+      if (selectedTime < now) {
+        this.responseMessage = "Cannot book an appointment in the past.";
+        return; // Prevent the form submission
+      }
     }
     const formattedTime = this.datePipe.transform(this.itemForm.controls['time'].value, 'yyyy-MM-dd HH:mm:ss');
 

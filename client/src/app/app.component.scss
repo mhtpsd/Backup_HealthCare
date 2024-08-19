@@ -24,7 +24,7 @@ padding: 0;
   
   body {
     font-family: 'Roboto', sans-serif;
-    background-image: url("../assets/medical.jpg");
+    background-image: url("../assets/697207.jpg");
    // background-image: url("../assets/medical.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -58,6 +58,22 @@ padding: 0;
     border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .username-box {
+    display: inline-block;
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    padding: 2px 5px; /* Padding inside the box */
+    border-radius: 5px; /* Optional: rounded corners */
+    font-weight: bold; /* Optional: bold text */
+    text-align: center; /* Center text horizontally */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.2rem;
   }
    
   .form-control {

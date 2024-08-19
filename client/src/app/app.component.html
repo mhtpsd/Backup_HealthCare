@@ -40,7 +40,9 @@
         <a class="nav-link" [routerLink]="['/login']">Login</a>
       </li>
       <li *ngIf="IsLoggin" style="display: flex; flex-direction: row; align-items: center;" class="nav-item">
-        <span class="navbar-text mr-2">{{username}} | </span>
+        <span class="navbar-text mr-2">
+          <span class="username-box">{{username}}</span> |
+      </span>
         <a class="nav-link hover-effect" (click)="logout()" [routerLink]="['/login']">Logout</a>
       </li>
     </ul>
