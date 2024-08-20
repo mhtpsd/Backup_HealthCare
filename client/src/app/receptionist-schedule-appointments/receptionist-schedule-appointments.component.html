@@ -30,16 +30,17 @@
 
       <div class="mb-3">
         <label for="time" class="form-label">Appointment Time</label>
-        <input type="datetime-local" name="time" formControlName="time" [(ngModel)]="formModel.time" class="form-control" id="time" placeholder="Appointment Time" [min]="today">
-        <div *ngIf="itemForm.controls['time'].invalid && (itemForm.controls['time'].dirty || itemForm.controls['time'].touched)" class="ng-dirty">
-          <span *ngIf="itemForm.controls['time'].errors">
-            <span class="text-danger">Please choose a valid Appointment Time.</span>
-          </span>
+        <input type="datetime-local" name="time" formControlName="time" [(ngModel)]="formModel.time" class="form-control" id="time" placeholder="Appointment Time" [min]="minDate">
+        <div *ngIf="itemForm.get('time')?.invalid && !itemForm.get('time')?.hasError('negativeValue')" class="error-message">
+          <span class="text-danger">Please choose a valid appointment time.</span>
+        </div>
+        <div *ngIf="itemForm.get('time')?.hasError('negativeValue')" class="error-message">
+          <span class="text-danger">Patient Already Booked this Appointment Time!</span>
         </div>
       </div>
 
       <div class="text-center">
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn text-white " style="background-color: rgb(74, 134, 134);" type="submit">Submit</button>
       </div>
     </form>
   </div>

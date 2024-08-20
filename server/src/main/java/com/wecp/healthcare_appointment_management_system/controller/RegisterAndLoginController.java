@@ -27,6 +27,17 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.wecp.healthcare_appointment_management_system.repository.*;
 
+import com.wecp.healthcare_appointment_management_system.entity.Appointment;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.GetMapping;
+
 @RestController
 public class RegisterAndLoginController {
 
@@ -81,7 +92,7 @@ public class RegisterAndLoginController {
     }
 
     @DeleteMapping("/api/appointment/delete/{appointmentId}")
-public ResponseEntity<Void> deleteAppointment(@PathVariable Long appointmentId) {
+    public ResponseEntity<Boolean> deleteAppointment(@PathVariable Long appointmentId) {
     // Check if the appointment exists before deleting
     
     if (appointmentRepository.existsById(appointmentId)) {
@@ -92,6 +103,32 @@ public ResponseEntity<Void> deleteAppointment(@PathVariable Long appointmentId) 
     }
 }
 
+@GetMapping("/api/user/appointmentTime/{time}")
+public ResponseEntity<Boolean> appointmentTimeExists(@PathVariable String time) {
+    try {
+        // Define the date format
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+ 
+        // Parse the date-time string
+        Date startTime = format.parse(time);
+ 
+        // Add 30 minutes to get the end of the time range
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startTime);
+        calendar.add(Calendar.MINUTE, 30);
+        Date endTime = calendar.getTime();
+ 
+        // Check if any appointment exists within the 30-minute window
+        List<Appointment> appointments = appointmentRepository.findByAppointmentTimeBetween(startTime, endTime);
+        boolean appointmentExists = appointments != null && !appointments.isEmpty();
+ 
+        return ResponseEntity.ok(appointmentExists);
+    } catch (ParseException e) {
+        // Handle the exception
+        e.printStackTrace();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+}
     
 
 }

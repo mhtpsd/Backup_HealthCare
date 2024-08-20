@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row d-flex justify-content-center align-items-center p-4">
       <div class="col-12 col-md-8 col-lg-6 p-4">
-        <div class="card card-black">
+        <div class="card ">
           <div class="card-body p-4">
             <form class=" p-4" [formGroup]="itemForm" (ngSubmit)="onLogin()">
               <h6 class="fw-bold mb-2 text-uppercase text-center">Healthcare Appointment Management System</h6>
@@ -26,11 +26,11 @@
                 </div>
               </div>
               <div class="d-grid">
-                <button type="submit" class="btn btn-outline-primary">Login</button>
+                <button type="submit" class="btn ">Login</button>
               </div>
             </form>
             <div>
-              <p class="mb-0 text-center">Don't have an account? <a (click)="registration()" class="text-primary fw-bold">Register</a></p>
+              <p class="mb-0 text-center">Don't have an account? <a (click)="registration()" class="text-black fw-bold">Register</a></p>
             </div>
             <div *ngIf="showError" class="alert alert-danger" role="alert">
               {{errorMessage}}

@@ -1,4 +1,9 @@
 /* Centering content in the page */
+.card-header {
+    background-color: rgb(74, 134, 134);
+}
+
+
 .container {
     display: flex;
     flex-direction: column;
@@ -9,8 +14,8 @@
 }
 
 .thead-dark th {
-    background-color: #343a40;
-    color: white;
+    background-color: rgb(74, 134, 134);
+    color: black;
 }
 
 /* Styling for responsive reschedule form */
@@ -37,7 +42,7 @@
 
 #search-button {
     padding: 5px 15px;
-    background-color: #007bff;
+    background-color: rgb(74, 134, 134);
     color: white;
 }
 
@@ -78,7 +83,7 @@
 }
 
 .pagination li a {
-    color: #007bff;
+    color: rgb(74, 134, 134);
     text-decoration: none;
     padding: 5px 10px;
     border: 1px solid #dee2e6;
@@ -88,14 +93,14 @@
 }
 
 .pagination li a:hover {
-    background-color: #007bff;
+    background-color: rgb(28, 56, 56);
     color: white;
 }
 
 .pagination li.active a {
-    background-color: #007bff;
+    background-color: rgb(74, 134, 134);
     color: white;
-    border-color: #007bff;
+    border-color: rgb(74, 134, 134);
 }
 
 .pagination li.disabled a {

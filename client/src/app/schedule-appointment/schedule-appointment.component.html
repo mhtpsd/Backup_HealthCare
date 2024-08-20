@@ -9,15 +9,15 @@
         <input type="hidden" formControlName="patientId">
         <input type="hidden" formControlName="doctorId">
         <input 
-          type="datetime-local" 
-          name="time" 
-          formControlName="time" 
-          [(ngModel)]="formModel.time"
-          class="form-control" 
-          id="time" 
-          placeholder="Appointment Time"
-          [min]="today">
-        <div *ngIf="itemForm.controls['time'].invalid && (itemForm.controls['time'].dirty || itemForm.controls['time'].touched)" class="ng-dirty">
+        type="datetime-local" 
+        name="time" 
+        formControlName="time" 
+        [(ngModel)]="formModel.time"
+        class="form-control" 
+        id="time" 
+        placeholder="Appointment Time"
+        [min]="minDate">
+          <div *ngIf="itemForm.get('time')?.invalid && !itemForm.get('time')?.hasError('negativeValue')" class="error-message">
           <span class="text-danger">Please choose a valid appointment time.</span>
         </div>
         <div *ngIf="itemForm.get('time')?.hasError('negativeValue')" class="error-message">
@@ -39,6 +39,10 @@
 
 <div *ngIf="responseMessage && responseMessage !== 'Cannot book an appointment in the past.'" class="alert alert-success mt-3 text-center" role="alert">
   {{ responseMessage }}
+</div>
+
+<div *ngIf="alertMessage" class="alert" [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'danger'}" role="alert">
+  {{ alertMessage }}
 </div>
 
 <div class="card mt-4 mx-auto" style="max-width: 800px;">

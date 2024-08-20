@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,16 +26,33 @@ public class AppointmentService {
     @Autowired
     private DoctorService doctorService;
     
-    public Appointment scheduleAppointment(Long patientId,Long doctorId,TimeDto timeDto){
+    public Appointment scheduleAppointment(Long patientId, Long doctorId, TimeDto timeDto) {
         Appointment appointment = new Appointment();
         Patient p = patientRepository.findById(patientId).orElse(null);
         Doctor d = doctorService.findDoctorByID(doctorId);
         appointment.setDoctor(d);
         appointment.setPatient(p);
-        appointment.setAppointmentTime(timeDto.getTime());
+   
+        // Get the appointment time from the TimeDto
+       
+ 
+        Date appointmentTime = timeDto.getTime();
+ 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(appointmentTime);
+        calendar.add(Calendar.MINUTE, 30);
+        Date endTime = calendar.getTime();
+   
+        // Create a Calendar object and set its time to the appointment time
+   
+        // Get the new appointment time from the calendar
+   
+        // Set the new appointment time
+        appointment.setAppointmentTime(endTime);
+   
         appointment.setStatus("Scheduled");
         return appointmentRepository.save(appointment);
-      }
+    }
   
   
       public List<Appointment> getAppointmentsByPatientId(Long patientId){
@@ -45,13 +64,18 @@ public class AppointmentService {
       }
   
       public Appointment rescheduleAppointment(Long appointmentId,TimeDto timeDto){
-          Appointment appointment = appointmentRepository.findById(appointmentId).orElse(null);
-          if(appointment!=null){
-              appointment.setAppointmentTime(timeDto.getTime());
-              return appointmentRepository.save(appointment);
-          }
-          return null;
-      }
+        Appointment appointment = appointmentRepository.findById(appointmentId).orElse(null);
+        if(appointment!=null){
+          Date appointmentTime = timeDto.getTime();
+          Calendar calendar = Calendar.getInstance();
+      calendar.setTime(appointmentTime);
+      calendar.add(Calendar.MINUTE, 30);
+      Date endTime = calendar.getTime();
+            appointment.setAppointmentTime(endTime);
+            return appointmentRepository.save(appointment);
+        }
+        return null;
+    }
   
       public List<Appointment> getAppointmentsByDoctorId(Long doctorId){
           return appointmentRepository.getAppointmentsByDoctorId(doctorId);

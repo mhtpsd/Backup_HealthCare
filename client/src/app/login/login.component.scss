@@ -6,13 +6,7 @@
 }
 
 
-.card-black {
-  background-color: rgba(0, 0, 0, 0.475);
-  color: white;
-  position: relative; /* Change from fixed to relative */
-  max-width: 100%; 
- 
-         /* Limit the width of the card */
-  margin: auto; /* Center the card */
-  padding: 20px; /* Add some padding */
-}
+// ..btn{
+  .btn{
+    background-color: rgb(48, 134, 134);
+  }

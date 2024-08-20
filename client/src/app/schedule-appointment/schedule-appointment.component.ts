@@ -16,9 +16,11 @@ export class ScheduleAppointmentComponent implements OnInit {
   formModel:any={};
   responseMessage:any;
   isAdded: boolean=false;
-  today: string;
+  minDate: any;
+  alertMessage: any;
+  alertType: any;
+
   constructor(public httpService:HttpService,private formBuilder: FormBuilder,private datePipe: DatePipe) {
-    this.today = new Date().toISOString().split('T')[0];
     this.itemForm = this.formBuilder.group({
       patientId: [this.formModel.patientId,[ Validators.required]],
       doctorId: [this.formModel.doctorId,[ Validators.required]],
@@ -28,7 +30,8 @@ export class ScheduleAppointmentComponent implements OnInit {
 
    timeValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      return this.httpService.checkForTime(control.value).pipe(
+      let isoDateTime = control.value + ":00.000Z";
+      return this.httpService.appointmentTimeExists(isoDateTime).pipe(
         map(isTaken => {
           if (isTaken) {
             return { negativeValue: true };
@@ -43,6 +46,7 @@ export class ScheduleAppointmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPatients();
+    this.setMinDate() 
   }
   getPatients() {
     this.doctorList
@@ -76,6 +80,24 @@ export class ScheduleAppointmentComponent implements OnInit {
       this.itemForm.reset();
       this.responseMessage = "Appointment saved successfully.";
       this.isAdded = false;
+    });
+  }
+
+  setMinDate() {
+    const today = new Date();
+    today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+    this.minDate = today.toISOString().slice(0, 16);
+  }
+
+  checkAppointmentAvailability() {
+    const appointmentTime = new Date(this.itemForm.controls['time'].value);
+    this.httpService.appointmentTimeExists(appointmentTime).subscribe((exists: any) => {
+      if (exists) {
+        this.alertMessage = 'This time slot is already booked. Please choose another time.';
+        this.alertType = 'danger';
+      } else {
+        this.onSubmit();
+      }
     });
   }
 

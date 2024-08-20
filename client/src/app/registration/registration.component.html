@@ -1,16 +1,16 @@
 
-<div class="vh-85 d-flex justify-content-center align-items-center">
+<div class="vh-80 d-flex justify-content-center align-items-center background-color">
   <div class="container">
       <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-12 col-md-8 col-lg-6"  style="background-color: rgba(0, 0, 0, 0.475);color: white;">
+        <div class="col-12 col-md-8 col-lg-6">
           <!-- <div class="border border-3 border-primary"></div> -->
-          <div class="card-black ">
+          <div class="card ">
             <div class="card-body p-5">
   
-              <form class="mb-4 mt-md-4" [formGroup]="itemForm" (ngSubmit)="onRegister()">
+              <form class="" [formGroup]="itemForm" (ngSubmit)="onRegister()">
                 <h6 class="fw-bold mb-1 text-uppercase text-center">Healthcare Appointment Management System</h6>
-                <p class="mb-7 text-center">Please enter your details here</p>
-                <div class="mb-3">
+                <p class=" text-center">Please enter your details here</p>
+                <div class="">
                   <label for="username" class="form-label">Username</label>
                   <input 
     type="text" 
@@ -33,7 +33,7 @@
                 </div>
                 
   
-                <div class="mb-3">
+                <div class="">
                   <label for="email" class="form-label">Email address</label>
                   <input 
                       type="email" 
@@ -53,7 +53,7 @@
               </div>
               
   
-                <div class="mb-3">
+                <div class="">
                   <label for="password" class="form-label">Password</label>
                   <input 
                       type="password" 
@@ -105,13 +105,13 @@
                   </div>
                 </div>
   
-                <div class="d-grid">
-                  <button class="btn btn-success" type="submit">Submit</button>
+                <div class="mb-3 d-grid">
+                  <button type="submit" class="btn custom-submit-btn" style="background-color: rgb(48, 134, 134);">Submit</button>
                 </div>
               </form>
   
               <div>
-                <p class="mb-0 text-center"> <a [routerLink]="['/login']" class="text-primary fw-bold">Go to Login</a></p>
+                <p class="mb-0 text-center"> <a [routerLink]="['/login']" class="text-black fw-bold">Go to Login</a></p>
               </div>
   
               <div *ngIf="showMessage" class="alert alert-success mt-4" role="alert">

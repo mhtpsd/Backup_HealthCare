@@ -2,7 +2,7 @@
 
 <div class="container">
     <div *ngIf="isAdded" class="card reschedule-card">
-        <div class="card-header text-white bg-primary">
+        <div class="card-header text-white">
             <h4>Rescheduled Appointment</h4>
         </div>
         <div class="card-body">
@@ -10,15 +10,16 @@
                 <div class="mb-3">
                     <label for="time" class="form-label">Appointment Time</label>
                     <input type="hidden" formControlName="id">
-                    <input type="datetime-local" name="time" formControlName="time" [(ngModel)]="formModel.time" class="form-control" id="time" placeholder="Appointment Time">
-                    <div *ngIf="itemForm.controls['time'].invalid && (itemForm.controls['time'].dirty || itemForm.controls['time'].touched)" class="ng-dirty">
-                        <span *ngIf="itemForm.controls['time'].errors">
-                            <span class="text-danger">Please Choose Appointment Time.</span>
-                        </span>
+                    <input type="datetime-local" name="time" formControlName="time" [(ngModel)]="formModel.time" class="form-control" id="time" placeholder="Appointment Time" [min]="minDate">
+                    <div *ngIf="itemForm.get('time')?.invalid && !itemForm.get('time')?.hasError('negativeValue')" class="error-message">
+                        <span class="text-danger">Please choose a valid appointment time.</span>
+                    </div>
+                    <div *ngIf="itemForm.get('time')?.hasError('negativeValue')" class="error-message">
+                        <span class="text-danger">Patient Already Booked this Appointment Time!</span>
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-outline-dark btn-block" type="submit">Submit</button>
+                    <button class="btn btn-outline-dark btn-block" style="background-color: rgb(74, 134, 134);" type="submit">Submit</button>
                 </div>
             </form>
         </div>
@@ -29,7 +30,7 @@
     </div>
 
     <div class="card mt-4 appointments-card">
-        <div class="card-header text-white bg-primary d-flex justify-content-between align-items-center">
+        <div class="card-header text-black  d-flex justify-content-between align-items-center">
             <h4>Appointments</h4>
             <div class="input-group search-bar">
                 <input id="search-input" type="search" (input)="searchAppointments($event)" placeholder="Search appointments" class="form-control form-control-sm" />

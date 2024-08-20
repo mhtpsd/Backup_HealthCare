@@ -90,16 +90,19 @@ export class HttpService {
     headers = headers.set('Content-Type', 'application/json');
     return this.http.post(this.serverName+'/api/user/login',details,{headers:headers});
   }
+
   registerPatient(details:any):Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     return this.http.post(this.serverName+'/api/patient/register',details,{headers:headers});
   }
+
   registerDoctors(details:any):Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     return this.http.post(this.serverName+'/api/doctors/register',details,{headers:headers});
   }
+  
   registerReceptionist(details:any):Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
@@ -134,12 +137,28 @@ deleteAppointment(id:any){
    return this.http.delete(this.serverName+`/api/appointment/delete/${id}`, { headers: headers });
  }
 
- checkForTime(details:any):Observable<Boolean>{
+ appointmentTimeExists(details: any): Observable<Boolean> {
+  console.log(details);
+  const authToken = this.authService.getToken();
   let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/json');
-  return this.http.get<boolean>(this.serverName + '/api/user/appointmentTime', { headers: headers, params: { details } });
- }
+  headers = headers.set('Content-Type', 'application/json');
+  headers = headers.set('Authorization', `Bearer ${authToken}`);
 
+  // Convert the input date-time string to a Date object
+  let date = new Date(details);
+
+  // Extract the date and time components
+  let year = date.getUTCFullYear();
+  let month = date.getUTCMonth() + 1; // Months are 0-based in JavaScript
+  let day = date.getUTCDate();
+  let hours = date.getUTCHours();
+  let minutes = date.getUTCMinutes();
+
+  // Construct a new date-time string in the desired format
+  let newDetails = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}T${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  console.log(newDetails);
+  return this.http.get<boolean>(this.serverName+`/api/user/appointmentTime/${newDetails}`, { headers: headers });
+}
 
 
 

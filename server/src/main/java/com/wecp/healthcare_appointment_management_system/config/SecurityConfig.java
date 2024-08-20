@@ -58,11 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/patient/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/doctors/register").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/patient/appointment").hasAuthority("PATIENT")
-
                 .antMatchers(HttpMethod.POST, "/api/receptionist/appointment").hasAuthority("RECEPTIONIST")
-
                 .antMatchers(HttpMethod.POST, "/api/receptionist/appointment").hasAuthority("“RECEPTIONIST")
-
                 .antMatchers(HttpMethod.GET, "/api/patient/doctors").hasAuthority("PATIENT")
                 .antMatchers(HttpMethod.GET, "/api/patient/appointments").hasAuthority("PATIENT")
                 .antMatchers(HttpMethod.GET, "/api/patient/medicalrecords").hasAuthority("PATIENT")
@@ -70,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/receptionist/appointments").hasAuthority("RECEPTIONIST")
                 .antMatchers(HttpMethod.POST, "/api/receptionist/appointment").hasAuthority("RECEPTIONIST")
                 .antMatchers(HttpMethod.DELETE, "/api/appointment/delete/{appointmentId}").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/appointmentTime/{time}").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/receptionist/appointment-reschedule/{appointmentId}**").hasAuthority("RECEPTIONIST")
 
                 

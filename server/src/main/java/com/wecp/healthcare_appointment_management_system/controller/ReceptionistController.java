@@ -42,4 +42,10 @@ public class ReceptionistController {
         // reschedule appointment
         return new ResponseEntity<Appointment>(appointmentService.rescheduleAppointment(appointmentId,timeDto), HttpStatus.OK);
     }
+
+    // @GetMapping("/user/appointmentTime/{time}")
+    // public ResponseEntity<Boolean> appointmentTimeExists(@PathVariable String time) {
+    //     boolean exists = appointmentService.appointmentTimeExists(time);
+    //     return ResponseEntity.ok(exists);
+    // }
   }

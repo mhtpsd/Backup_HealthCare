@@ -24,25 +24,26 @@ padding: 0;
   
   body {
     font-family: 'Roboto', sans-serif;
-    background-image: url("../assets/697207.jpg");
+    background-image: url("../assets/medical.jpg");
    // background-image: url("../assets/medical.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     // background-attachment: fixed;
     width: 100%;
-    height: 150vh;
+    height: fit-content;
+    min-height: 100vh;
     display: flex;
     // position: relative;
 }
    
-  .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 60px;
-    z-index: 999;
-    background-color: rgba(255, 255, 255, 0.8);
-  }
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 999;
+  background-color: rgb(43, 152, 152);
+}
    
   .login-container {
     position: fixed;
@@ -62,13 +63,12 @@ padding: 0;
 
   .username-box {
     display: inline-block;
-    background-color: #007bff; /* Blue background */
-    color: white; /* White text */
-    padding: 2px 5px; /* Padding inside the box */
-    border-radius: 5px; /* Optional: rounded corners */
-    font-weight: bold; /* Optional: bold text */
-    text-align: center; /* Center text horizontally */
-    white-space: nowrap; /* Prevent text from wrapping */
+    color: black;
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
 }
 
   .navbar-brand {
